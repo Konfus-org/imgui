@@ -4,6 +4,11 @@ project "ImGui"
     cppdialect "C++17"
     staticruntime "Off"
 
+    flags
+    {
+        "MultiProcessorCompile"
+    }
+
     if OutputIntermediateDir == nil or OutputTargetDir == nil then
         targetdir ("Build/bin/%{prj.name}/")
         objdir    ("Build/obj/%{prj.name}/")
@@ -33,7 +38,7 @@ project "ImGui"
         "./backends/imgui_impl_glfw.cpp",
         "./backends/imgui_impl_opengl3.h",
         "./backends/imgui_impl_opengl3.cpp",
-        
+
         "./**.md",
         "./**.lua",
 	}
@@ -44,7 +49,7 @@ project "ImGui"
         "./backends",
 
         -- Default to GLFW backend
-        "%{IncludeDir.GLFW}"
+        "%{Using.GLFW}"
     }
 
     links
