@@ -18,12 +18,10 @@ project "ImGui"
 		"imstb_truetype.h",
 		"imgui_demo.cpp",
 
-        -- Need to swap out backends depending on platform
-        -- Default is GLFW and OpenGL
         "./backends/imgui_impl_glfw.h",
         "./backends/imgui_impl_glfw.cpp",
-        "./backends/imgui_impl_opengl3.h",
-        "./backends/imgui_impl_opengl3.cpp",
+        "./backends/imgui_impl_vulkan.h",
+        "./backends/imgui_impl_vulkan.cpp",
 
         "./**.md",
         "./**.lua",
@@ -32,12 +30,17 @@ project "ImGui"
     {
         "./",
         "./backends",
-
-        -- Default to GLFW backend
         _MAIN_SCRIPT_DIR .. "/Dependencies/GLFW/include"
     }
     links
     {
-        -- Default to GLFW backend
         "GLFW"
     }
+    
+    filter "system:windows"
+        systemversion "latest"
+        files
+        {
+            "./backends/imgui_impl_dx12.h",
+            "./backends/imgui_impl_dx12.cpp",
+        }
