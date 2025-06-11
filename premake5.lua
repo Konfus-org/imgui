@@ -4,6 +4,9 @@ project "ImGui"
     cppdialect "C++17"
     staticruntime "Off"
 
+    local vulkan_sdk = os.getenv("VULKAN_SDK")
+    assert(vulkan_sdk, "Vulkan SDK not found! Make sure you have Vulkan installed! After install restart PC to make the SDK env path to be available.")
+
     files
 	{
 		"imconfig.h",
@@ -23,18 +26,23 @@ project "ImGui"
         "./backends/imgui_impl_vulkan.h",
         "./backends/imgui_impl_vulkan.cpp",
 
-        "./**.md",
-        "./**.lua",
+        "./**.md"
 	}
+    libdirs
+    {
+        vulkan_sdk .. "/Lib" 
+    }
     includedirs
     {
         "./",
         "./backends",
+        vulkan_sdk .. "/Include",
         _MAIN_SCRIPT_DIR .. "/Dependencies/GLFW/include"
     }
     links
     {
-        "GLFW"
+        "GLFW",
+        "vulkan-1"
     }
     
     filter "system:windows"
